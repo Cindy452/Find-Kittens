@@ -1,5 +1,5 @@
 .card-list {
-    width: 80vw;
+    width: 90vw;
     max-width: 1170px;
     margin: 3rem auto;
     display: grid;
@@ -11,7 +11,7 @@
     @media screen and (min-width: 800px) {
      
       .card-list {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
       }
   
     }
