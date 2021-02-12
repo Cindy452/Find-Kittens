@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import {CardList} from './components/card-list/CardList';
+import {SearchBox} from './components/search-box/SearchBox';
 
 function App() {
+
+  const [kittens, setKittens] = useState([]);
+  const [searchfield, setSearchfield] = useState('');
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+    .then(res => res.json())
+    .then(users => setKittens(users))
+  }, []);
+
+  const handleChange = (e) => {
+    setSearchfield(e.target.value);
+  }
+
+  const filteredKittens = kittens.filter(kitten => kitten.name.toLowerCase().includes(searchfield.toLowerCase()));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Beautiful Kittens</h1>
+     <SearchBox handleChange={handleChange} placeholder='Search Kittens....' />
+     <CardList kittens={filteredKittens} />
     </div>
   );
 }
